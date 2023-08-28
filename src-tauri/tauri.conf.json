@@ -1,0 +1,53 @@
+{
+  "build": {
+    "beforeDevCommand": "node ./bin/build.mjs",
+    "beforeBuildCommand": "node ./bin/build.mjs",
+    "devPath": "../src",
+    "distDir": "../src",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "Color Utilities",
+    "version": "1.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "targets": "all",
+      "identifier": "me.parkersprouse.colorutils",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ]
+    },
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "center": true,
+        "fileDropEnabled": false,
+        "fullscreen": false,
+        "height": 600,
+        "minHeight": 300,
+        "minWidth": 400,
+        "resizable": true,
+        "title": "Color Utilities",
+        "width": 800
+      }
+    ],
+    "updater": {
+      "active": false
+    }
+  }
+}

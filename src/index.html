@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Color Utilities</title>
+    <link rel='stylesheet' href='/styles.css' />
+    <script type='module' src='/scripts.js' defer></script>
+  </head>
+
+  <body>
+    <div class='container'>
+      <div class='row'>
+        <input id='input_color' />
+        <button id='picker_trigger'></button>
+      </div>
+    </div>
+
+    <script src='/lib/colr_pickr/colr_pickr.min.js'></script>
+    <script>
+      window.__APP__ = {
+        ColorPicker,
+      };
+    </script>
+  </body>
+</html>

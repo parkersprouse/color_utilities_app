@@ -1,0 +1,21 @@
+{
+  "tauri": {
+    "bundle": {
+      "externalBin": [
+        "lib/dart_sass/macos/sass",
+        "lib/dart_sass/macos/dart",
+        "lib/dart_sass/macos/sass.snapshot"
+      ]
+    },
+    "allowlist": {
+      "shell": {
+        "sidecar": true,
+        "scope": [
+          { "name": "lib/dart_sass/macos/sass", "sidecar": true },
+          { "name": "lib/dart_sass/macos/dart", "sidecar": true },
+          { "name": "lib/dart_sass/macos/sass.snapshot", "sidecar": true }
+        ]
+      }
+    }
+  }
+}
