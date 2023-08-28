@@ -51,7 +51,7 @@ const { css } = await css_processor.process(css_contents, { from: css_input });
 console.log('[Step 2] esbuild - CSS');
 await esbuild.build({
   ...shared_config,
-  outfile: join(__root_dir, 'assets', 'styles.css'),
+  outfile: join(__root_dir, 'dist', 'styles.css'),
   stdin: {
     contents: css,
     loader: 'css',
@@ -68,7 +68,7 @@ await esbuild.build({
   ...shared_config,
   entryPoints: [join(__root_dir, 'scripts', 'scripts.js')],
   format: 'esm',
-  outdir: join(__root_dir, 'assets'),
+  outdir: join(__root_dir, 'dist'),
   platform: 'browser',
 });
 
