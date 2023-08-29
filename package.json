@@ -17,8 +17,10 @@
     "build:macos:silicon": "tauri build --target aarch64-apple-darwin",
     "build:windows": "tauri build --target ",
     "dev": "tauri dev",
-    "lint:css": "stylelint src/styles/styles.css",
-    "lint:css:fix": "stylelint --fix src/styles/styles.css",
+    "lint:css": "stylelint src/styles/*.css",
+    "lint:css:fix": "stylelint --fix src/styles/*.css",
+    "lint:js": "eslint --ext .js src/scripts/",
+    "lint:js:fix": "eslint --fix --ext .js src/scripts/",
     "start": "pnpm run dev",
     "tauri": "tauri"
   },
@@ -28,10 +30,12 @@
     "sanitize.css": "^13.0.0"
   },
   "devDependencies": {
+    "@shopify/eslint-plugin": "^43.0.0",
     "@tauri-apps/cli": "^1.4.0",
     "autoprefixer": "^10.4.15",
     "browserslist": "^4.21.10",
     "esbuild-plugin-browserslist": "^0.9.0",
+    "eslint": "^8.48.0",
     "postcss": "^8.4.28",
     "postcss-preset-env": "^9.1.1",
     "stylelint": "^15.10.3",

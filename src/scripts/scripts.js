@@ -10,9 +10,9 @@ async function greet() {
 window.addEventListener('DOMContentLoaded', () => {
   const input = document.getElementById('input_color');
   const btn = document.getElementById('picker_trigger');
-  new window.__APP__.ColorPicker(btn, '#000000');
+  window.__APP__.ColorPicker(btn, '#000000');
 
-  btn.addEventListener('colorChange', (e) => {
-    input.value = e.detail.color.hexa;
+  btn.addEventListener('colorChange', (event) => {
+    input.value = event.detail.color.hexa;
   });
 });
