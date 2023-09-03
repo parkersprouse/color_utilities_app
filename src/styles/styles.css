@@ -75,6 +75,16 @@ main {
       display: block;
       width: 100%;
     }
+
+    & .output_display {
+      padding: 0.5rem 1rem;
+
+      background-color: #000;
+      border: 1px solid transparent;
+      border-radius: 0.5rem;
+      outline: none;
+      box-shadow: 0 2px 2px rgb(0 0 0 / 20%);
+    }
   }
 }
 

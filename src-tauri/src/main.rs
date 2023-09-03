@@ -2,82 +2,83 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::{
-    fs::{File, DirBuilder},
-    io::{
-        BufRead,
-        BufReader,
-        Error,
-        Write
-    }
-};
-use tauri::api::{
-    path,
-    process::{
-        Command,
-        CommandEvent
-    }
-};
+use tauri::api::process::{Command, CommandEvent};
 
-async fn create_tmp_file(window: tauri::Window, app_handle: &tauri::AppHandle, input: String, percent: i32) -> Result<(), Error> {
-    DirBuilder::new().recursive(true).create(app_handle.path_resolver().app_local_data_dir().unwrap()).unwrap();
-
-    let input_file_path = app_handle.path_resolver().app_local_data_dir().unwrap().join("input.scss");
-    let output_file_path = app_handle.path_resolver().app_local_data_dir().unwrap().join("output.css");
-
-    let mut input_file = File::create(&input_file_path)?;
-    write!(input_file, "{}", format!("@use 'sass:color';
-    :root {{
-        $input: {};
-        --output: #{{color.scale($input, $lightness: {}%)}};
-    }}", input, percent))?;
-
+#[tauri::command]
+async fn darken(input: String, percent: i32) -> String {
     let (mut rx, mut child) = Command::new_sidecar("sass")
-        .expect("failed to create `sass` binary command")
-        .args([
-            "--no-source-map",
-            &format!("\"{}\"", input_file_path.to_str().unwrap()),
-            &format!("\"{}\"", output_file_path.to_str().unwrap())
-        ])
+        .unwrap()
+        .args(["--stdin"])
         .spawn()
-        .expect("Failed to spawn `sass` sidecar");
+        .unwrap();
 
-    // let result = tauri::async_runtime::spawn(async move {
-    //     while let Some(_event) = rx.recv().await {};
-    // }).await.unwrap();
-    tauri::async_runtime::spawn(async move {
-        while let Some(event) = rx.recv().await {
-            if let CommandEvent::Stdout(line) = event {
-                // println!("{}", line);
-                window
-                    .emit("message", Some(format!("'{}'", line)))
-                    .expect("failed to emit event");
-                child.write("message from Rust\n".as_bytes()).unwrap();
+    child
+        .write(
+            format!(
+                "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: -{}%)}}; }}",
+                input, percent
+            ).as_bytes()
+        )
+        .unwrap();
+    drop(child);
+
+    let mut output = String::new();
+    while let Some(event) = rx.recv().await {
+        if let CommandEvent::Stdout(line) = event {
+            if line.contains("--output: #") {
+                output.push_str(&line);
+            }
+        } else if let CommandEvent::Terminated(payload) = event {
+            if payload.code.unwrap() != 0 {
+                panic!("SASS command failed");
             }
         }
-    }).await.expect("Failed to wait for SASS command");
-
-    println!("After the SCSS translation");
-
-    let output_file = File::open(output_file_path)?;
-    let output_contents = BufReader::new(output_file);
-
-    for line in output_contents.lines() {
-        println!("{}", line?);
     }
 
-    Ok(())
+    output
+        .replace("--output:", "")
+        .replace(';', "")
+        .trim()
+        .to_string()
 }
 
 #[tauri::command]
-async fn darken(app_handle: tauri::AppHandle, input: String, percent: i32) -> String {
-    create_tmp_file(&app_handle, input, percent).await.expect("Failed to perform SASS parsing");
-    app_handle.path_resolver().app_local_data_dir().unwrap().display().to_string()
+async fn lighten(input: String, percent: i32) -> String {
+    let (mut rx, mut child) = Command::new_sidecar("sass")
+        .unwrap()
+        .args(["--stdin"])
+        .spawn()
+        .unwrap();
+
+    child
+        .write(
+            format!(
+                "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: {}%)}}; }}",
+                input, percent
+            ).as_bytes()
+        )
+        .unwrap();
+    drop(child);
+
+    let mut output = String::new();
+    while let Some(event) = rx.recv().await {
+        if let CommandEvent::Stdout(line) = event {
+            if line.contains("--output: #") {
+                output.push_str(&line);
+            }
+        }
+    }
+
+    output
+        .replace("--output:", "")
+        .replace(';', "")
+        .trim()
+        .to_string()
 }
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![darken])
+        .invoke_handler(tauri::generate_handler![darken, lighten])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
