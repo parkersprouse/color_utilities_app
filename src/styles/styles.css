@@ -18,34 +18,37 @@
   font-synthesis: none;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
+main {
   margin: 0;
   padding-top: 10vh;
-
   text-align: center;
+
+  & .container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+  }
 
   & .row {
     display: flex;
-    gap: 10px;
+    gap: 0.75rem;
     justify-content: center;
   }
 
   & input,
   button {
-    padding: 0.6em 1.2em;
+    padding: 0.5rem 1rem;
 
     font-family: inherit;
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: 500;
     color: #0f0f0f;
 
     background-color: #fff;
     border: 1px solid transparent;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     outline: none;
     box-shadow: 0 2px 2px rgb(0 0 0 / 20%);
 
@@ -64,6 +67,15 @@
       border-color: #396cd8;
     }
   }
+
+  & .container--action {
+    gap: 0.5rem;
+
+    & > button {
+      display: block;
+      width: 100%;
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -72,7 +84,7 @@
     background-color: #2f2f2f;
   }
 
-  .container {
+  main {
     & input,
     button {
       color: #fff;

@@ -9,12 +9,36 @@
   </head>
 
   <body>
-    <div class='container'>
-      <div class='row'>
-        <input id='input_color' />
-        <button id='picker_trigger'></button>
+    <main>
+      <div class='container'>
+        <div class='row'>
+          <input id='input_color' />
+          <button id='picker_trigger'></button>
+        </div>
+
+        <div class='row'>
+          <div class='container container--action'>
+            <div class='row'>
+              <input id='darken_output_field' readonly />
+              <div id='darken_output_display' class='output_display'></div>
+            </div>
+            <button id='darken_output_trigger'>
+              Darken
+            </button>
+          </div>
+
+          <div class='container container--action'>
+            <div class='row'>
+              <input id='lighten_output_field' readonly />
+              <div id='lighten_output_display' class='output_display'></div>
+            </div>
+            <button id='lighten_output_trigger'>
+              Lighten
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
 
     <script src='/lib/colr_pickr/colr_pickr.min.js'></script>
     <script>
