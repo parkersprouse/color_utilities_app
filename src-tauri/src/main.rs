@@ -4,22 +4,15 @@
 
 use tauri::api::process::{Command, CommandEvent};
 
-#[tauri::command]
-async fn darken(input: String, percent: i32) -> String {
+async fn sass_perform(cmd_str: String) -> String {
     let (mut rx, mut child) = Command::new_sidecar("sass")
         .unwrap()
         .args(["--stdin"])
         .spawn()
         .unwrap();
 
-    child
-        .write(
-            format!(
-                "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: -{}%)}}; }}",
-                input, percent
-            ).as_bytes()
-        )
-        .unwrap();
+    // Write our styles to STDIN and then drop the child process to close it
+    child.write(cmd_str.as_bytes()).unwrap();
     drop(child);
 
     let mut output = String::new();
@@ -43,37 +36,23 @@ async fn darken(input: String, percent: i32) -> String {
 }
 
 #[tauri::command]
-async fn lighten(input: String, percent: i32) -> String {
-    let (mut rx, mut child) = Command::new_sidecar("sass")
-        .unwrap()
-        .args(["--stdin"])
-        .spawn()
-        .unwrap();
-
-    child
-        .write(
-            format!(
-                "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: {}%)}}; }}",
-                input, percent
-            ).as_bytes()
+async fn darken(input: String, percent: i32) -> String {
+    sass_perform(
+        format!(
+            "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: -{}%)}}; }}",
+            input, percent
         )
-        .unwrap();
-    drop(child);
+    ).await
+}
 
-    let mut output = String::new();
-    while let Some(event) = rx.recv().await {
-        if let CommandEvent::Stdout(line) = event {
-            if line.contains("--output: #") {
-                output.push_str(&line);
-            }
-        }
-    }
-
-    output
-        .replace("--output:", "")
-        .replace(';', "")
-        .trim()
-        .to_string()
+#[tauri::command]
+async fn lighten(input: String, percent: i32) -> String {
+    sass_perform(
+        format!(
+            "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: {}%)}}; }}",
+            input, percent
+        )
+    ).await
 }
 
 fn main() {
