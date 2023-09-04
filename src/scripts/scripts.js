@@ -1,4 +1,6 @@
 // https://tauri.app/v1/guides/features/command
+import { initSliders } from '../lib/slider/slider';
+
 const { invoke } = window.__TAURI__.tauri;
 
 async function initAction(action) {
@@ -25,18 +27,15 @@ function initInput() {
 function initOutputs() {
   document
     .getElementById('darken_output_trigger')
-    .addEventListener('click', () => {
-      initAction('darken');
-    });
+    .addEventListener('click', () => { initAction('darken'); });
 
   document
     .getElementById('lighten_output_trigger')
-    .addEventListener('click', () => {
-      initAction('lighten');
-    });
+    .addEventListener('click', () => { initAction('lighten'); });
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   initInput();
   initOutputs();
+  initSliders();
 });

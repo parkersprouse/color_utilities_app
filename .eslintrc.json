@@ -26,11 +26,17 @@
         "arraysInObjects": false
       }
     ],
+    "curly": ["error", "multi-line"],
     "prettier/prettier": [
-      "error",
+      "off",
       {
         "singleQuote": true
       }
-    ]
+    ],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }]
   }
 }

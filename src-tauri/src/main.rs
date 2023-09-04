@@ -3,6 +3,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::api::process::{Command, CommandEvent};
+use tracing::info;
 
 async fn sass_perform(cmd_str: String) -> String {
     let (mut rx, mut child) = Command::new_sidecar("sass")
@@ -37,6 +38,7 @@ async fn sass_perform(cmd_str: String) -> String {
 
 #[tauri::command]
 async fn darken(input: String, percent: i32) -> String {
+    info!("Performing [darken] action");
     sass_perform(
         format!(
             "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: -{}%)}}; }}",
@@ -47,6 +49,7 @@ async fn darken(input: String, percent: i32) -> String {
 
 #[tauri::command]
 async fn lighten(input: String, percent: i32) -> String {
+    info!("Performing [lighten] action");
     sass_perform(
         format!(
             "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: {}%)}}; }}",
