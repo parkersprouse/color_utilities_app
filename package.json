@@ -12,10 +12,9 @@
     "pnpm": "^8"
   },
   "scripts": {
-    "build:linux": "tauri build --target ",
+    "build": "tauri build",
     "build:macos:intel": "tauri build --target x86_64-apple-darwin",
     "build:macos:silicon": "tauri build --target aarch64-apple-darwin",
-    "build:windows": "tauri build --target ",
     "dev": "tauri dev",
     "lint:css": "stylelint src/styles/*.css",
     "lint:css:fix": "stylelint --fix src/styles/*.css",

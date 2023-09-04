@@ -1,0 +1,17 @@
+{
+  "tauri": {
+    "bundle": {
+      "externalBin": [
+        "lib/dart_sass/linux/sass"
+      ]
+    },
+    "allowlist": {
+      "shell": {
+        "sidecar": true,
+        "scope": [
+          { "name": "lib/dart_sass/linux/sass", "sidecar": true }
+        ]
+      }
+    }
+  }
+}
