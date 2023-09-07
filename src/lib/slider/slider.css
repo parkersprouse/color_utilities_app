@@ -1,23 +1,11 @@
-/*
-.field {
-	width: 100%;
-	max-width: 340px;
-	margin-right: auto;
-	margin-left: auto;
-	padding: 20px;
+/* -------------------------------------- *
+ *                Source:                 *
+ * https://codepen.io/jester6/pen/zYqRKBN *
+ * -------------------------------------- */
 
-	background-color: #fff;
-	box-shadow: 0 10px 20px 0 rgb(0 0 0 / 19%),
-		0 6px 6px 0 rgb(0 0 0 / 23%);
-
-	& label {
-		display: block;
-		margin-bottom: 16px;
-		font-size: 16px;
-		font-weight: bold;
-	}
+.percent_slider__value {
+  cursor: pointer;
 }
-*/
 
 .inputslider {
 	position: relative;

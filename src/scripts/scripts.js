@@ -6,7 +6,7 @@ const { invoke } = window.__TAURI__.tauri;
 async function initAction(action) {
   const result = await invoke(action, {
     input: document.getElementById('input_color').value,
-    percent: 25,
+    percent: Number.parseFloat(document.getElementById('percent_slider').getAttribute('data-value')),
   });
 
   document.getElementById(`${action}_output_field`).value = result;
@@ -17,10 +17,14 @@ async function initAction(action) {
 function initInput() {
   const input = document.getElementById('input_color');
   const btn = document.getElementById('picker_trigger');
-  window.__APP__.ColorPicker(btn, '#000000');
+  const picker = new window.__APP__.ColorPicker(btn, '#000000');
 
   btn.addEventListener('colorChange', (event) => {
     input.value = event.detail.color.hexa;
+  });
+
+  input.addEventListener('input', (event) => {
+    picker.changeColor(event.target.value);
   });
 }
 

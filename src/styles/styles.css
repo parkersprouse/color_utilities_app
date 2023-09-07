@@ -68,6 +68,12 @@ main {
       background-color: #e8e8e8;
       border-color: #396cd8;
     }
+
+    & > svg {
+      & > path {
+        fill: #f6f6f6;
+      }
+    }
   }
 
   & .container--action {
@@ -103,8 +109,16 @@ main {
       background-color: #0f0f0f98;
     }
 
-    & button:active {
-      background-color: #0f0f0f69;
+    & button {
+      &:active {
+        background-color: #0f0f0f69;
+      }
+
+      & > svg {
+        & > path {
+          fill: #f6f6f6;
+        }
+      }
     }
   }
 }
