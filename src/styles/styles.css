@@ -3,8 +3,6 @@
 @import url('alwan/dist/css/alwan.min.css');
 @import url('../lib/slider/slider.css');
 
-/* @import url('../lib/colr_pickr/colr_pickr.min.css'); */
-
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -22,11 +20,24 @@
 }
 
 main {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: center;
+
   margin: 0;
-  padding-top: 10vh;
+  padding: 2rem;
+
   text-align: center;
 
-  & .container {
+  & > #input_tools,
+  & > #output_tools {
+    width: calc(50% - 0.5rem);
+  }
+
+  & .column {
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -78,7 +89,7 @@ main {
     }
   }
 
-  & .container--action {
+  & .output_tools--action {
     gap: 0.5rem;
 
     & > button {
@@ -123,4 +134,9 @@ main {
       }
     }
   }
+}
+
+.alwan {
+  margin: 0 auto;
+  border: none;
 }

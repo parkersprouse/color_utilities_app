@@ -48,7 +48,7 @@
 			&.selected {
 				z-index: 2;
 				color: #fff;
-				background-color: #434a54;
+				background-color: #131313;
 			}
 		}
 	}
@@ -81,7 +81,7 @@
 			width: 0;
 			height: 6px;
 
-			background: #aab2bd;
+			background: #131313;
 			border-radius: 3px;
 		}
 
@@ -94,7 +94,7 @@
 			width: 28px;
 			height: 28px;
 
-			background-color: #434a54;
+			background-color: #131313;
 			border-radius: 50%;
 			box-shadow: 0 0 2px rgb(0 0 0 / 10%), 0 7px 12px rgb(0 0 0 / 12%);
 		}

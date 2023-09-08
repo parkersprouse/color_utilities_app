@@ -25,17 +25,6 @@ function initInput() {
     position: 'center',
     preset: false,
   });
-  // const input = document.getElementById('input_color');
-  // const btn = document.getElementById('picker_trigger');
-  // const picker = new window.__APP__.ColorPicker(btn, '#000000');
-  //
-  // btn.addEventListener('colorChange', (event) => {
-  //   input.value = event.detail.color.hexa;
-  // });
-  //
-  // input.addEventListener('input', (event) => {
-  //   picker.changeColor(event.target.value);
-  // });
 }
 
 function initOutputs() {
