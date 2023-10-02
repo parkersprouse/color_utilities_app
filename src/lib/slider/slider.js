@@ -2,11 +2,10 @@
  *                Source:                 *
  * https://codepen.io/jester6/pen/zYqRKBN *
  * -------------------------------------- */
-import gsap from 'gsap';
-import Draggable from 'gsap/Draggable';
+import { gsap } from 'gsap';
+import { Draggable } from 'gsap/Draggable';
 
 gsap.registerPlugin(Draggable);
-
 
 /* --------------------------------------
  * Constants
@@ -25,7 +24,6 @@ const selector = Object.freeze({
   VALUE_SPANS: '.values span',
 });
 
-
 /* --------------------------------------
  * Helper Methods
  * -------------------------------------- */
@@ -38,10 +36,9 @@ function removeClass(ele, className) {
   if (ele) ele.classList.remove(className);
 }
 
-function toFloat(val) {
-  return Number.parseFloat(val);
+function toFloat(value) {
+  return Number.parseFloat(value);
 }
-
 
 /* --------------------------------------
  * Slider Logic
@@ -52,11 +49,11 @@ function setSelectedValue(slider, input, span, value, slider_values) {
   // ---------------------
   for (const entry of inputslider.querySelectorAll(selector.VALUE_SPANS)) removeClass(entry, 'selected');
   addClass(span, 'selected');
-  document.getElementById(selector.SLIDER_ID).setAttribute(attribute.VALUE, value);
+  document.querySelector(`#${selector.SLIDER_ID}`).setAttribute(attribute.VALUE, value);
   input.value = value;
   // ---------------------
   const fill = inputslider.querySelector('.fill');
-  const max = toFloat(slider_values[slider_values.length - 1]);
+  const max = toFloat(slider_values.at(-1));
   const min = toFloat(slider_values[0]);
   const relativeValue = gsap.utils.mapRange(0, slider.maxX, min, max, span.offsetLeft);
   const finalValue = gsap.utils.snap(slider_values, relativeValue);
@@ -70,7 +67,7 @@ function handleInputSlider(instance, snap, slider_values, input) {
   const inputslider = instance.target.closest(selector.SLIDER_CLASS);
   const fill = inputslider.querySelector('.fill');
 
-  const max = toFloat(slider_values[slider_values.length - 1]);
+  const max = toFloat(slider_values.at(-1));
   const min = toFloat(slider_values[0]);
   const relativeValue = gsap.utils.mapRange(0, instance.maxX, min, max, instance.x);
 
@@ -83,8 +80,8 @@ function handleInputSlider(instance, snap, slider_values, input) {
     gsap.to(fill, { duration: 0.2, width: `${fillWidth}%` });
   } else {
     let i = 0;
-    for (const val of slider_values) {
-      slider_values[i] = toFloat(val);
+    for (const value of slider_values) {
+      slider_values[i] = toFloat(value);
       i += 1;
     }
 
@@ -95,7 +92,7 @@ function handleInputSlider(instance, snap, slider_values, input) {
       const option_value = toFloat(span.getAttribute(attribute.VALUE));
       if (option_value === toFloat(finalValue)) {
         addClass(span, 'selected');
-        document.getElementById(selector.SLIDER_ID).setAttribute(attribute.VALUE, option_value);
+        document.querySelector(`#${selector.SLIDER_ID}`).setAttribute(attribute.VALUE, option_value);
       } else {
         removeClass(span, 'selected');
       }
@@ -128,8 +125,8 @@ export function initSliders() {
     })[0];
 
     let i = 0;
-    for (const val of slider_values) {
-      const parsedValue = toFloat(val);
+    for (const value of slider_values) {
+      const parsedValue = toFloat(value);
       slider_values[i] = parsedValue;
 
       const span = document.createElement('span');
@@ -138,7 +135,7 @@ export function initSliders() {
       addClass(span, 'percent_slider__value');
       span.style.left = `${gsap.utils.mapRange(
         toFloat(slider_values[0]),
-        toFloat(slider_values[slider_values.length - 1]),
+        toFloat(slider_values.at(-1)),
         0,
         100,
         parsedValue,
@@ -147,11 +144,12 @@ export function initSliders() {
       if (slider_value === parsedValue) {
         setSelectedValue(slider, input, span, parsedValue, slider_values);
       }
+
       span.addEventListener('click', () => {
         setSelectedValue(slider, input, span, parsedValue, slider_values);
       });
 
-      inputslider.querySelector(selector.VALUES_WRAPPER).appendChild(span);
+      inputslider.querySelector(selector.VALUES_WRAPPER).append(span);
       i += 1;
     }
   }
