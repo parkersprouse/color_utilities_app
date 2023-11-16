@@ -1,6 +1,7 @@
 // https://tauri.app/v1/guides/features/command
 import Alwan from 'alwan';
-import { initSliders } from '../lib/slider/slider.js';
+import tinycolor from 'tinycolor2';
+// import { initSliders } from '../lib/slider/slider.js';
 
 const { invoke } = window.__TAURI__.tauri;
 
@@ -9,11 +10,12 @@ let picker;
 async function perform(action) {
   const result = await invoke(action, {
     input: picker.getColor().hex,
-    percent: Number.parseFloat(document.querySelector('#percent_slider').getAttribute('data-value')),
+    percent: 50,
+    // percent: Number.parseFloat(document.querySelector('#percent_slider').getAttribute('data-value')),
   });
 
-  document.querySelector(`#${action}_output_field`).value = result;
-  document.querySelector(`#${action}_output_display`).style.backgroundColor = result;
+  document.querySelector(`#${action}_output_field`).value = tinycolor(result).toHexString();
+  document.querySelector(`#${action}_output_display`).style.backgroundColor = tinycolor(result).toHexString();
 }
 
 function initInput() {
@@ -29,19 +31,15 @@ function initInput() {
 function initOutputs() {
   document
     .querySelector('#darken_output_trigger')
-    .addEventListener('click', () => {
-      perform('darken');
-    });
+    .addEventListener('click', () => perform('darken'));
 
   document
     .querySelector('#lighten_output_trigger')
-    .addEventListener('click', () => {
-      perform('lighten');
-    });
+    .addEventListener('click', () => perform('lighten'));
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   initInput();
   initOutputs();
-  initSliders();
+  // initSliders();
 });
