@@ -1,0 +1,1 @@
+- history of input -> output color transformations (persisting on the disk) so users can revisit previous colors

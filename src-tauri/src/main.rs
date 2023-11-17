@@ -37,19 +37,8 @@ async fn sass_perform(cmd_str: String) -> String {
 }
 
 #[tauri::command]
-async fn darken(input: String, percent: i32) -> String {
-  info!("Performing [darken] action");
-  sass_perform(
-    format!(
-      "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: -{}%)}}; }}",
-      input, percent
-    )
-  ).await
-}
-
-#[tauri::command]
-async fn lighten(input: String, percent: i32) -> String {
-  info!("Performing [lighten] action");
+async fn adjust_dl(input: String, percent: i32) -> String {
+  info!("Performing [adjust_dl] action");
   sass_perform(
     format!(
       "@use 'sass:color'; :root {{ $input: {}; --output: #{{color.scale($input, $lightness: {}%)}}; }}",
@@ -60,7 +49,7 @@ async fn lighten(input: String, percent: i32) -> String {
 
 fn main() {
   tauri::Builder::default()
-    .invoke_handler(tauri::generate_handler![darken, lighten])
+    .invoke_handler(tauri::generate_handler![adjust_dl])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

@@ -24,6 +24,7 @@ module.exports = {
     'capitalized-comments': 'off',
     curly: ['error', 'multi-line'],
     'i18n-text/no-en': 'off',
+    'import/no-unassigned-import': ['error', { allow: ['@material/web/**/*'] }],
     'no-await-in-loop': 'off',
     'no-console': 'off',
     'no-unused-vars': ['error', { 'varsIgnorePattern': '^_.*' }],

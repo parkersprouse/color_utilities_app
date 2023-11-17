@@ -12,37 +12,22 @@
     <main>
       <div id='input_tools' class='column'>
         <div class='row' id='input_picker'></div>
-        <!-- <div class='row'>
-          <div id='percent_slider' class='inputslider' data-value='10' data-unit='%' data-values='10,25,50,75,90'>
-            <input type='text' name='input' autocomplete='off' readonly>
-            <div class='values'></div>
-            <div class='area'>
-              <div class='track'></div>
-              <div class='fill'></div>
-              <div class='knob'></div>
-            </div>
-          </div>
-        </div> -->
+        <div class='row' style='justify-content: space-between; flex-wrap: nowrap;'>
+          <span>Darken</span>
+          <span id='dl_label'></span>
+          <span>Lighten</span>
+        </div>
+        <md-slider class='row' id='dl_slider' min='-100' max='100' value='0'></md-slider>
       </div>
 
       <div id='output_tools' class='column'>
         <div class='column output_tools--action'>
-          <button id='darken_output_trigger'>
-            Darken
-          </button>
+          <md-filled-tonal-button id='dl_output_trigger'>
+            Adjust
+          </md-filled-tonal-button>
           <div class='row'>
-            <input id='darken_output_field' readonly />
-            <div id='darken_output_display' class='output_display'></div>
-          </div>
-        </div>
-
-        <div class='column output_tools--action'>
-          <button id='lighten_output_trigger'>
-            Lighten
-          </button>
-          <div class='row'>
-            <input id='lighten_output_field' readonly />
-            <div id='lighten_output_display' class='output_display'></div>
+            <input id='dl_output_field' readonly />
+            <div id='dl_output_display' class='output_display'></div>
           </div>
         </div>
       </div>
