@@ -12,8 +12,8 @@ dependencies:
     specifier: ^1.1.1
     version: 1.1.1
   alwan:
-    specifier: ^1.4.0
-    version: 1.4.0
+    specifier: ^2.0.1
+    version: 2.0.1
   gsap:
     specifier: ^3.12.4
     version: 3.12.4
@@ -1223,8 +1223,8 @@ packages:
       uri-js: 4.4.1
     dev: true
 
-  /alwan@1.4.0:
-    resolution: {integrity: sha512-6eEECPJ5tKObAhPt5hTc6eYduEJbo8tH85WVwoAtEqn6qMBnu71CJ+0Nk23FQtyU1PLsTGBAYLNTc5e9D67DbQ==}
+  /alwan@2.0.1:
+    resolution: {integrity: sha512-Rv1W6GSJIhtxjLz9Vx0SMOdQ09k9M4aEnK6xO3lGb6/SsbJl3IdkMCxdL3BnsoMhEvFAbFcdNkq2XzWuUg3zjQ==}
     dev: false
 
   /ansi-regex@5.0.1:
