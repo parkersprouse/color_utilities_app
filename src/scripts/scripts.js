@@ -12,11 +12,11 @@ let slider;
 
 function initInput() {
   picker = new Alwan('#input_picker', {
-    theme: 'dark',
-    toggle: false,
     popover: false,
     position: 'center',
     preset: false,
+    theme: 'dark',
+    toggle: false,
   });
 
   dl_trigger = document.querySelector('#dl_output_trigger');

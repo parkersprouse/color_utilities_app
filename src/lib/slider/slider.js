@@ -2,8 +2,8 @@
  *                Source:                 *
  * https://codepen.io/jester6/pen/zYqRKBN *
  * -------------------------------------- */
-import { gsap } from 'gsap';
 import { Draggable } from 'gsap/Draggable';
+import { gsap } from 'gsap';
 
 gsap.registerPlugin(Draggable);
 
@@ -20,8 +20,8 @@ const attribute = Object.freeze({
 const selector = Object.freeze({
   SLIDER_CLASS: '.inputslider',
   SLIDER_ID: 'percent_slider',
-  VALUES_WRAPPER: '.values',
   VALUE_SPANS: '.values span',
+  VALUES_WRAPPER: '.values',
 });
 
 /* --------------------------------------
@@ -59,8 +59,14 @@ function setSelectedValue(slider, input, span, value, slider_values) {
   const finalValue = gsap.utils.snap(slider_values, relativeValue);
   const snapX = gsap.utils.mapRange(min, max, 0, slider.maxX, finalValue);
   const fillWidth = gsap.utils.mapRange(0, slider.maxX, 0, 100, snapX);
-  gsap.to(slider.target, { duration: 0.2, x: snapX });
-  gsap.to(fill, { duration: 0.2, width: `${fillWidth}%` });
+  gsap.to(slider.target, {
+    duration: 0.2,
+    x: snapX,
+  });
+  gsap.to(fill, {
+    duration: 0.2,
+    width: `${fillWidth}%`,
+  });
 }
 
 function handleInputSlider(instance, snap, slider_values, input) {
@@ -76,8 +82,14 @@ function handleInputSlider(instance, snap, slider_values, input) {
   const fillWidth = gsap.utils.mapRange(0, instance.maxX, 0, 100, snapX);
 
   if (snap) {
-    gsap.to(instance.target, { duration: 0.2, x: snapX });
-    gsap.to(fill, { duration: 0.2, width: `${fillWidth}%` });
+    gsap.to(instance.target, {
+      duration: 0.2,
+      x: snapX,
+    });
+    gsap.to(fill, {
+      duration: 0.2,
+      width: `${fillWidth}%`,
+    });
   } else {
     let i = 0;
     for (const value of slider_values) {
@@ -114,14 +126,14 @@ export function initSliders() {
     const slider = Draggable.create(knob, {
       bounds: area,
       edgeResistance: 1,
-      throwProps: false,
-      type: 'x',
       onDrag() {
         handleInputSlider(this, false, slider_values, input);
       },
       onDragEnd() {
         handleInputSlider(this, true, slider_values, input);
       },
+      throwProps: false,
+      type: 'x',
     })[0];
 
     let i = 0;
@@ -138,7 +150,7 @@ export function initSliders() {
         toFloat(slider_values.at(-1)),
         0,
         100,
-        parsedValue,
+        parsedValue
       )}%`;
 
       if (slider_value === parsedValue) {
