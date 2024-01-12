@@ -17,8 +17,11 @@ html, body {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
+  color: #ddd;
   text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
+
+  background: #222;
 
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -44,7 +47,9 @@ main {
 
   & > #input_tools,
   & > #output_tools {
+    overflow-x: clip;
     width: calc(50% - 0.5rem);
+    max-width: calc(50% - .5rem);
   }
 
   & .column {
@@ -58,7 +63,21 @@ main {
     display: flex;
     gap: 0.75rem;
     justify-content: center;
-    min-width: 380px;
+
+    width: 80%;
+    min-width: 300px
+  }
+
+  & .column_title {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 2rem;
+    padding: 0;
+    padding-bottom: 0.5rem;
+
+    text-align: center;
+
+    border-bottom: 1px solid #6F7979;
   }
 
   & .alwan.alwan--open {
@@ -80,8 +99,4 @@ main {
       outline: none;
     }
   }
-
-  /* & #dl_label {
-
-  } */
 }
